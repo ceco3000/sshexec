@@ -171,9 +171,15 @@ func (exec *HostSession) GenerateConfig() ssh.ClientConfig {
 
 	}
 
+	hostKeyCallbk := func(hostname string, remote net.Addr, key ssh.PublicKey) error {
+		return nil
+	}
+
+
 	config := ssh.ClientConfig{
 		User: exec.Username,
 		Auth: auths,
+		HostKeyCallback: hostKeyCallbk,
 	}
 
 	config.Ciphers = []string{"aes128-cbc", "3des-cbc"}
